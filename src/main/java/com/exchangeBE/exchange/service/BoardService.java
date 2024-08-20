@@ -3,6 +3,7 @@ package com.exchangeBE.exchange.service;
 
 import com.exchangeBE.exchange.dto.BoardRequestDTO;
 import com.exchangeBE.exchange.dto.BoardResponseDTO;
+import com.exchangeBE.exchange.dto.BoardSearchRequestDTO;
 import com.exchangeBE.exchange.dto.HotBoardResponseDTO;
 import com.exchangeBE.exchange.entity.Board;
 import com.exchangeBE.exchange.entity.User;
@@ -37,6 +38,21 @@ public class BoardService {
                 .map(this::convertToResponseDTO)
                 .collect(Collectors.toList());
     }
+
+
+    //제목으로 게시물 검색기능
+    public List<BoardResponseDTO> searchByTitle(BoardSearchRequestDTO boardSearchRequestDTO) {
+        List<Board> boards = boardRepository.findByTitleContainingOrderByCreatedAtDesc(boardSearchRequestDTO.getTitle());
+        return convertToDTOs(boards);
+    }
+
+    private List<BoardResponseDTO> convertToDTOs(List<Board> boards) {
+        return boards.stream()
+                .map(this::convertToResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+
 
     public BoardResponseDTO createBoard(Long userId, BoardRequestDTO requestDTO) {
 

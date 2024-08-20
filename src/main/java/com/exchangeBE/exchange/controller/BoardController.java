@@ -2,7 +2,9 @@ package com.exchangeBE.exchange.controller;
 
 import com.exchangeBE.exchange.dto.BoardRequestDTO;
 import com.exchangeBE.exchange.dto.BoardResponseDTO;
+import com.exchangeBE.exchange.dto.BoardSearchRequestDTO;
 import com.exchangeBE.exchange.dto.HotBoardResponseDTO;
+import com.exchangeBE.exchange.entity.Board;
 import com.exchangeBE.exchange.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,12 +34,19 @@ public class BoardController {
     }
 
 
-    // 선택된 게시글 조회
+    // id로 선택된 게시글 조회
     @GetMapping("/api/post/{id}")
     public ResponseEntity<BoardResponseDTO> getBoard(@PathVariable Long id) {
         return boardService.getBoard(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    // 게시물 제목으로 게시글 조회
+    //      /api/post?title=xxx
+    @GetMapping("/api/post")
+    public List<BoardResponseDTO> searchByTitle(@ModelAttribute BoardSearchRequestDTO boardSearchRequestDTO) {
+        return boardService.searchByTitle(boardSearchRequestDTO);
     }
 
     // 선택된 게시글 수정
