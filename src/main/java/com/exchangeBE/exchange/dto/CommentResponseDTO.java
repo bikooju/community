@@ -10,6 +10,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Builder
+@AllArgsConstructor
 public class CommentResponseDTO {
     private Long id;
     private String content;
@@ -17,13 +18,4 @@ public class CommentResponseDTO {
     private LocalDateTime createdAt;
     private Long parentId; // 대댓글의 경우 부모 댓글 ID
     private List<CommentResponseDTO> replies; // 대댓글 리스트
-
-    public CommentResponseDTO(Long id, String content, String username, LocalDateTime createdAt, Long parentId, List<CommentResponseDTO> replies) {
-        this.id = id;
-        this.content = content;
-        this.username = username;
-        this.createdAt = createdAt;
-        this.parentId = parentId;
-        this.replies = replies;
-    }
 }
