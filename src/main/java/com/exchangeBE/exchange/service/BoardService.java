@@ -34,9 +34,7 @@ public class BoardService {
 
     public List<BoardResponseDTO> getAllBoards() {
         List<Board> boards = boardRepository.findAllByOrderByCreatedAtDesc();
-        return boards.stream()
-                .map(this::convertToResponseDTO)
-                .collect(Collectors.toList());
+        return convertToDTOs(boards);
     }
 
 
