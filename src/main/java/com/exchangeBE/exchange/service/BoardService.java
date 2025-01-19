@@ -164,7 +164,7 @@ public class BoardService {
                             hotScore
                     );
                 })
-                .sorted(Comparator.comparingInt(HotBoardResponseDTO::getHotScore).reversed())
+                .sorted(Comparator.comparingInt(HotBoardResponseDTO::getHotScore).reversed()) //hostScore 높은 순서대로 정렬
                 .limit(10)
                 .collect(Collectors.toList());
 
